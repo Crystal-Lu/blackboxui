@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.notifications.NotificationsFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/tagScanCard"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/translucentGrey"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/phoneScanCard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/phoneScanCard"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/translucentGrey"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagScanCard">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/bahnschrift"
+                android:text="Martha's House"
+                android:textAlignment="viewStart"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                tools:textAlignment="center" />
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:scaleX="7"
+                android:scaleY="7"
+                android:src="@drawable/ic_dashboard_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

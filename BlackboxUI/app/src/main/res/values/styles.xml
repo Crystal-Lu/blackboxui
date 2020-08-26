@@ -1,0 +1,19 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="fontFamily">@font/bahnschrift</item>
+    </style>
+
+    <style name="Type">
+        <item name="android:textColor">@color/white</item>
+        <item name="font">@font/bahnschrift</item>
+    </style>
+
+
+</resources>
