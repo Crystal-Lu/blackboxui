@@ -8,7 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.blackboxui.R
+import com.example.blackboxui.RecyclerviewAdapter
+import com.example.blackboxui.RecyclerviewAdapterDash
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class DashboardFragment : Fragment() {
 
@@ -38,5 +43,23 @@ class DashboardFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
         return root
+    }
+
+    private fun initRecyclerView2(){
+
+        dashRecyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            //val topSpacingDecorator = TopSpacingItemDecoration(30)
+            //addItemDecoration(topSpacingDecorator)
+            var recycleAdapter2 = RecyclerviewAdapterDash()
+//            addDataSet()
+            adapter = recycleAdapter2
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initRecyclerView2()
     }
 }
