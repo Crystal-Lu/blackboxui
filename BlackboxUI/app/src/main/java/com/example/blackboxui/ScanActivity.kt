@@ -5,6 +5,8 @@ import android.app.ActivityOptions
 import android.app.PendingIntent
 import android.content.Intent
 import android.content.IntentFilter
+import android.nfc.NdefMessage
+import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.nfc.tech.MifareClassic
@@ -15,6 +17,8 @@ import android.os.Parcel
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_scan.*
+import java.nio.charset.StandardCharsets.US_ASCII
+
 
 class ScanActivity : AppCompatActivity() {
 
@@ -116,13 +120,52 @@ class ScanActivity : AppCompatActivity() {
         var action : String? = intent.getAction()
         if(action.equals(NfcAdapter.ACTION_TAG_DISCOVERED) ||
                 action.equals(NfcAdapter.ACTION_TECH_DISCOVERED) ){
-            val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-            patchTag(tag)
-            Toast.makeText(applicationContext, "nfc recieved", Toast.LENGTH_SHORT).show()
+            //val tag = intent.getParcelableArrayExtra<Tag>(NfcAdapter.EXTRA_NDEF_MESSAGES)
+            val tag = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
+            //val msg : NdefMessage
+
+            if (tag != null) {
+
+                for (i in 0 until tag.size) {
+
+
+                    val msg  = tag[i] as NdefMessage
+                    if (msg.records != null) {
+                        val rec : NdefRecord = msg.records[i]
+                        //Toast.makeText(applicationContext, rec.type.toString(), Toast.LENGTH_SHORT).show()
+
+                        val path = "blackbox:nfcapp"
+                        if (rec.type!!.contentEquals(path.toByteArray())) {
+
+                            Toast.makeText(applicationContext, String(rec.getPayload(), US_ASCII), Toast.LENGTH_SHORT).show()
+
+
+                        }
+                        //secretMessage.setText(new String(rec.getPayload(), US_ASCII));
+                    }
+                }
+
+                }
+
+
+//
+//            if (tag != null) {
+//                val messages = arrayOfNulls<NdefMessage>(tag.size)
+//                for (i in 0 until tag.size) {
+//                    messages[i] : NdefMessage = ""
+//
+//                    com.sun.org.apache.xml.internal.serializer.utils.Utils.messages[i] = tag[i]
+//                }
+//                }
+//                }
+//            }
+
+            //patchTag(tag)
+            //Toast.makeText(applicationContext, "nfc recieved", Toast.LENGTH_SHORT).show()
             readAnimation()
 //            val intent = Intent(this,MainActivity::class.java)
 //            startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle())
-            tag?.let { readFromNFC(it, intent) }
+            //tag?.let { readFromNFC(it, intent) }
 
         }
 
@@ -153,110 +196,5 @@ class ScanActivity : AppCompatActivity() {
 
     }
 
-    fun patchTag(oTag: Tag?): Tag? {
-        if (oTag == null) return null
-        val sTechList = oTag.techList
-        val oParcel: Parcel
-        val nParcel: Parcel
-        oParcel = Parcel.obtain()
-        oTag.writeToParcel(oParcel, 0)
-        oParcel.setDataPosition(0)
-        val len = oParcel.readInt()
-        var id: ByteArray? = null
-        if (len >= 0) {
-            id = ByteArray(len)
-            oParcel.readByteArray(id)
-        }
-        val oTechList = IntArray(oParcel.readInt())
-        oParcel.readIntArray(oTechList)
-        val oTechExtras = oParcel.createTypedArray(Bundle.CREATOR)
-        val serviceHandle = oParcel.readInt()
-        val isMock = oParcel.readInt()
-        val tagService: IBinder?
-        tagService = if (isMock == 0) {
-            oParcel.readStrongBinder()
-        } else {
-            null
-        }
-        oParcel.recycle()
-        var nfca_idx = -1
-        var mc_idx = -1
-        for (idx in sTechList.indices) {
-            if (sTechList[idx] === NfcA::class.java.name) {
-                nfca_idx = idx
-            } else if (sTechList[idx] === MifareClassic::class.java.name) {
-                mc_idx = idx
-            }
-        }
-        if (nfca_idx >= 0 && mc_idx >= 0 && oTechExtras!![mc_idx] == null) {
-            oTechExtras[mc_idx] = oTechExtras[nfca_idx]
-        } else {
-            return oTag
-        }
-        nParcel = Parcel.obtain()
-        nParcel.writeInt(id!!.size)
-        nParcel.writeByteArray(id)
-        nParcel.writeInt(oTechList.size)
-        nParcel.writeIntArray(oTechList)
-        nParcel.writeTypedArray(oTechExtras, 0)
-        nParcel.writeInt(serviceHandle)
-        nParcel.writeInt(isMock)
-        if (isMock == 0) {
-            nParcel.writeStrongBinder(tagService)
-        }
-        nParcel.setDataPosition(0)
-        val nTag = Tag.CREATOR.createFromParcel(nParcel)
-        nParcel.recycle()
-        return nTag
-    }
-
-
-    private fun readFromNFC(tag: Tag, intent: Intent) {
-
-
-//        indiv = Indiv()
-
-
-
-        /*
-        val name = findViewById<EditText>(com.google.firebase.database.R.id.name_field).text.toString()
-        val email = findViewById<EditText>(com.google.firebase.database.R.id.email_field).text.toString()
-        val phone = findViewById<EditText>(com.google.firebase.database.R.id.phone_field).text.toString()
-
-
-
-        if (name == "" || email == "" || phone == "") {
-            Toast.makeText(applicationContext, "Name, email, or phone fields are empty", Toast.LENGTH_LONG).show()
-        } else if (!indiv.matchEmail(email)) {
-            Toast.makeText(applicationContext, "Enter valid Cornell email", Toast.LENGTH_LONG).show()
-        } else if (!indiv.matchNumber(phone)) {
-            Toast.makeText(applicationContext, "Enter valid phone number", Toast.LENGTH_LONG).show()
-        } else {
-
-
-            when (userState) {
-
-                "HOME" -> {
-                    findViewById<View>(com.google.firebase.database.R.id.pane).setBackgroundColor(Color.parseColor("#FFFFFF"))
-                    userState = "CLEARED"
-                }
-                else -> {
-                    findViewById<View>(com.google.firebase.database.R.id.pane).setBackgroundColor(Color.parseColor("#FF2FFF"))
-                    userState = "HOME"
-                }
-            }
-
-            indiv.setName(name)
-            indiv.setEmail(email)
-            indiv.setPhoneNumber(phone)
-            //indiv.setTimestamp()
-            val current = LocalDateTime.now()
-
-            val formatter = DateTimeFormatter.BASIC_ISO_DATE
-            val formatted = current.format(formatter)
-            database.child("party-2").child("$formatted").child(indiv.getName()).setValue(indiv)
-
-         */
-    }
 
 }
