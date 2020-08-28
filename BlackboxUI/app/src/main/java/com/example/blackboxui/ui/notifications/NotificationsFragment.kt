@@ -8,30 +8,63 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.blackboxui.MainActivity
 import com.example.blackboxui.R
 import kotlinx.android.synthetic.main.fragment_notifications.*
+import kotlinx.android.synthetic.main.fragment_notifications.tagScanCard
+import kotlinx.android.synthetic.main.user_card.*
 
 
 class NotificationsFragment : Fragment() {
 
     private lateinit var notificationsViewModel: NotificationsViewModel
-    private var cardState = 0 // 0 means no card active, 1 means top card active, -1 means bottom card
+    var cardState = 0 // 0 means no card active, 1 means top card active, -1 means bottom card
 
 
-
-    companion object {
-        fun newInstance() = NotificationsFragment()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
 
         //task_card.card
+     }
+
+    override fun onResume() {
+        super.onResume()
+        loadData(scanTagActiveField)
+        loadData(phoneScanActiveField)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        saveData(scanTagActiveField)
+        saveData(phoneScanActiveField)
+    }
+
+    private fun saveData(et : EditText) {
+
+        val insertedText = et.text.toString()
+
+        val sharedPreferences = (activity as MainActivity).getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.apply {
+            putString(et.id.toString(), insertedText)
+        }.apply()
+    }
+
+    private fun loadData(et : EditText){
+        val sharedPreferences = (activity as MainActivity).getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+        try {
+            val savedString = sharedPreferences.getString(et.id.toString(),null)
+            et.setText(savedString)
+        } finally {
+
+        }
 
     }
 
@@ -65,14 +98,14 @@ class NotificationsFragment : Fragment() {
                     phoneScanCard.alpha = 0.3F
                     cardState = 1
                     scanTagImage.visibility = View.GONE
-                    scanTagText.setTransitionVisibility(View.GONE)
+                    scanTagText.visibility = View.GONE
                     scanTagActiveField.visibility = View.VISIBLE
-                    scanTagActiveText.setTransitionVisibility(View.VISIBLE)
+                    scanTagActiveText.visibility = View.VISIBLE
                     phoneScanImage.visibility = View.GONE
-                    phoneScanText.setTransitionVisibility(View.VISIBLE)
+                    phoneScanText.visibility = View.VISIBLE
                     phoneScanText.text = "Cancel"
-                    phoneScanActiveField.visibility = View.GONE
-                    phoneScanActiveText.setTransitionVisibility(View.GONE)
+                    phoneScanActiveField.visibility = View.INVISIBLE
+                    phoneScanActiveText.visibility = View.GONE
                     phoneScanExit.visibility = View.VISIBLE
                     scanTagExit.visibility = View.GONE
                 }
@@ -81,24 +114,28 @@ class NotificationsFragment : Fragment() {
                     tagScanCard.alpha = 1F
                     cardState = 0
                     closeKeyboard()
-                    context?.let { hideKeyboardFrom(it,view) }
+                    //context?.let { hideKeyboardFrom(it,view) }
                     scanTagImage.visibility = View.VISIBLE
-                    scanTagText.setTransitionVisibility(View.VISIBLE)
+                    scanTagText.visibility = View.VISIBLE
                     scanTagActiveField.visibility = View.GONE
-                    scanTagActiveText.setTransitionVisibility(View.GONE)
+                    scanTagActiveText.visibility = View.GONE
                     phoneScanImage.visibility = View.VISIBLE
-                    phoneScanText.setTransitionVisibility(View.VISIBLE)
+                    phoneScanText.visibility = View.VISIBLE
                     phoneScanText.text = "Host on this phone"
                     scanTagText.text = "Host with scan tag"
-                    phoneScanActiveField.visibility = View.GONE
-                    phoneScanActiveText.setTransitionVisibility(View.GONE)
+                    phoneScanActiveField.visibility = View.INVISIBLE
+                    phoneScanActiveText.visibility = View.GONE
                     phoneScanExit.visibility = View.GONE
                     scanTagExit.visibility = View.GONE
+
+                    scanTagActiveField.text = phoneScanActiveField.text
                 }
 
             }
 
             //Toast.makeText(context,phoneScanActiveField.isFocused.toString(),Toast.LENGTH_SHORT).show()
+            (activity as MainActivity).notificationsCardState = cardState
+
 
         }
 
@@ -112,14 +149,14 @@ class NotificationsFragment : Fragment() {
                     tagScanCard.alpha = 0.3F
                     cardState = -1
                     phoneScanImage.visibility = View.GONE
-                    phoneScanText.setTransitionVisibility(View.GONE)
+                    phoneScanText.visibility = View.GONE
                     phoneScanActiveField.visibility = View.VISIBLE
-                    phoneScanActiveText.setTransitionVisibility(View.VISIBLE)
+                    phoneScanActiveText.visibility = (View.VISIBLE)
                     scanTagImage.visibility = View.GONE
-                    scanTagText.setTransitionVisibility(View.VISIBLE)
+                    scanTagText.visibility = View.VISIBLE
                     scanTagText.text = "Cancel"
-                    scanTagActiveField.visibility = View.GONE
-                    scanTagActiveText.setTransitionVisibility(View.GONE)
+                    scanTagActiveField.visibility = View.INVISIBLE
+                    scanTagActiveText.visibility = View.GONE
                     phoneScanExit.visibility = View.GONE
                     scanTagExit.visibility = View.VISIBLE
                 }
@@ -128,19 +165,20 @@ class NotificationsFragment : Fragment() {
                     phoneScanCard.alpha = 1F
                     cardState = 0
                     closeKeyboard()
-                    context?.let { hideKeyboardFrom(it,view) }
+                    //context?.let { hideKeyboardFrom(it,view) }
                     phoneScanImage.visibility = View.VISIBLE
-                    phoneScanText.setTransitionVisibility(View.VISIBLE)
-                    phoneScanActiveField.visibility = View.GONE
-                    phoneScanActiveText.setTransitionVisibility(View.GONE)
+                    phoneScanText.visibility = (View.VISIBLE)
+                    phoneScanActiveField.visibility = View.INVISIBLE
+                    phoneScanActiveText.visibility = (View.GONE)
                     scanTagImage.visibility = View.VISIBLE
-                    scanTagText.setTransitionVisibility(View.VISIBLE)
+                    scanTagText.visibility = (View.VISIBLE)
                     phoneScanText.text = "Host on this phone"
                     scanTagText.text = "Host with scan tag"
-                    scanTagActiveField.visibility = View.GONE
-                    scanTagActiveText.setTransitionVisibility(View.GONE)
+                    scanTagActiveField.visibility = View.INVISIBLE
+                    scanTagActiveText.visibility = (View.GONE)
                     phoneScanExit.visibility = View.GONE
                     scanTagExit.visibility = View.GONE
+                    phoneScanActiveField.text = scanTagActiveField.text
                 }
 
             }
@@ -148,6 +186,7 @@ class NotificationsFragment : Fragment() {
 
 
             //Toast.makeText(context,cardState.toString(),Toast.LENGTH_SHORT).show()
+            (activity as MainActivity).notificationsCardState = cardState
 
         }
 
