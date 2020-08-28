@@ -10,33 +10,19 @@
         android:id="@+id/tagScanCard"
         android:layout_width="300dp"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:backgroundTint="@color/translucentGrey"
         android:clickable="true"
         android:focusable="true"
+        app:cardBackgroundColor="@color/translucentGrey"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:contentPadding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/phoneScanCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/phoneScanCard"
-        android:layout_width="300dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/translucentGrey"
-        android:clickable="true"
-        android:focusable="true"
-        app:cardCornerRadius="15dp"
-        app:cardElevation="0dp"
-        app:contentPadding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tagScanCard">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:clickable="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,31 +30,181 @@
             android:background="@android:color/transparent">
 
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/scanTagText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:fontFamily="@font/bahnschrift"
-                android:text="Martha's House"
-                android:textAlignment="viewStart"
+                android:text="host with scan tag"
+                android:textAlignment="center"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="30sp"
+                android:textFontWeight="400"
+                android:textScaleX=".75"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
-                tools:textAlignment="center" />
+                app:layout_constraintVertical_bias="1.0" />
 
             <ImageView
-                android:id="@+id/imageView4"
+                android:id="@+id/scanTagImage"
                 android:layout_width="wrap_content"
                 android:layout_height="120dp"
                 android:scaleX="7"
                 android:scaleY="7"
                 android:src="@drawable/ic_dashboard_black_24dp"
-                app:layout_constraintBottom_toTopOf="@+id/text"
+                app:layout_constraintBottom_toTopOf="@+id/scanTagText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/scanTagActiveField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:ems="10"
+                android:fontFamily="@font/bahnschrift"
+                android:hint="NAME OF YOUR GROUP"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hintPink"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/scanTagActiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bahnschrift"
+                android:text="set group name..."
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scanTagActiveField" />
+
+            <ImageView
+                android:id="@+id/scanTagExit"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_group_12"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/phoneScanCard"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@color/translucentGrey"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:contentPadding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tagScanCard"
+        tools:clickable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent">
+
+
+            <TextView
+                android:id="@+id/phoneScanText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/bahnschrift"
+                android:text="host with this phone"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <ImageView
+                android:id="@+id/phoneScanImage"
+                android:layout_width="wrap_content"
+                android:layout_height="120dp"
+                android:scaleX="7"
+                android:scaleY="7"
+                android:src="@drawable/ic_dashboard_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/phoneScanText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/phoneScanActiveField"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#FFFFFF"
+                android:ems="10"
+                android:fontFamily="@font/bahnschrift"
+                android:hint="NAME OF YOUR GROUP"
+                android:inputType="textPersonName"
+                android:selectAllOnFocus="true"
+                android:singleLine="true"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/hintPink"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/phoneScanActiveText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bahnschrift"
+                android:text="set group name..."
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phoneScanActiveField" />
+
+
+            <ImageView
+                android:id="@+id/phoneScanExit"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_group_12"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
