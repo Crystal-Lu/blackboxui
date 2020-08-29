@@ -18,14 +18,16 @@ import com.example.blackboxui.ui.dashboard.DashboardFragment
 import com.example.blackboxui.ui.home.HomeFragment
 import com.example.blackboxui.ui.notifications.NotificationsFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.contacts_card.*
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var database : DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        database = FirebaseDatabase.getInstance().getReference("test")
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -49,7 +51,29 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    override fun onResume() {
+        super.onResume()
 
+        val user = ArrayList<Pair<String,String>>()
+        val party = ArrayList<(Pair<String,String>)>()
+        val update = ArrayList<Pair<String,String>>()
+        database.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for(orbs in dataSnapshot.children){
+                    for(dates in orbs.children){
+                        for(data in dates.children){
+                            user.add(Pair(data.value.toString(),data.key.toString()))
+                            party.add(Pair(orbs.value.toString(),dates.value.toString()))
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("The read failed: " + databaseError.code)
+            }
+        })
+    }
     /*
     private fun init() {
 
