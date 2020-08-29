@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        database = FirebaseDatabase.getInstance().getReference("test")
+        database = FirebaseDatabase.getInstance().getReference("blackbox")
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -86,6 +86,28 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+//        database.addListenerForSingleValueEvent(object : ValueEventListener {
+//            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                //Log.d("testing3", dataSnapshot.children.toString())
+//                for (orbs in dataSnapshot.children) {
+//                    //Log.d("testing3", orbs.toString())
+//                    for (dates in orbs.children) {
+//
+//
+//                        Repository.party.add(Pair(orbs.key.toString(), dates.key.toString()))
+//                        for (data in dates.children) {
+//                            Repository.users.add(Pair(data.value.toString(), data.key.toString()))
+//                            Repository.party2.add(Pair(Pair(orbs.key.toString(), dates.key.toString()),Pair(data.value.toString(), data.key.toString())))
+//                        }
+//                    }
+//                }
+//            }
+//
+//            override fun onCancelled(databaseError: DatabaseError) {
+//                println("The read failed: " + databaseError.code)
+//            }
+//        })
+
     }
 
     override fun onResume() {
@@ -93,12 +115,20 @@ class MainActivity : AppCompatActivity() {
 
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d("testing3", "onDataChange")
+                //Log.d("testing3", dataSnapshot.children.toString())
                 for (orbs in dataSnapshot.children) {
+                    //Log.d("testing3", orbs.toString())
                     for (dates in orbs.children) {
-                        for (data in dates.children) {
-                            Repository.users.add(Pair(data.value.toString(), data.key.toString()))
-                            Repository.party.add(Pair(orbs.value.toString(), dates.value.toString()))
+
+                        Log.d("Ham", Repository.party.indexOf(Pair(orbs.key.toString(), dates.key.toString())).toString())
+                        if (Repository.party.indexOf(Pair(orbs.key.toString(), dates.key.toString()))==-1 ) {
+
+
+                            Repository.party.add(Pair(orbs.key.toString(), dates.key.toString()))
+                            for (data in dates.children) {
+                                Repository.users.add(Pair(data.value.toString(), data.key.toString()))
+                                Repository.party2.add(Pair(Pair(orbs.key.toString(), dates.key.toString()),Pair(data.value.toString(), data.key.toString())))
+                        }
                         }
                     }
                 }
@@ -216,11 +246,9 @@ class MainActivity : AppCompatActivity() {
                 action.equals(NfcAdapter.ACTION_TECH_DISCOVERED) || action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)
 
         ){
-            //val tag = intent.getParcelableArrayExtra<Tag>(NfcAdapter.EXTRA_NDEF_MESSAGES)
+            //val tag : Tag? = intent.getParcelableArrayExtra<Tag?>(NfcAdapter.EXTRA_NDEF_MESSAGES)
             val tag = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES)
             //val msg : NdefMessage
-
-            if (tag != null) {
 
                             if (navController.currentDestination?.label == "Notifications") {
 
@@ -239,14 +267,14 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                     }
-
-
-            }
+    
 
 
     fun createNFCMessage(payload: String, intent: Intent?) : Boolean {
 
         val pathPrefix = "blackbox:nfcapp"
+
+        Log.d("NFC", "attempted to write")
         val nfcRecord = NdefRecord(NdefRecord.TNF_EXTERNAL_TYPE, pathPrefix.toByteArray(), ByteArray(0), payload.toByteArray())
         val nfcMessage = NdefMessage(arrayOf(nfcRecord))
         intent?.let {

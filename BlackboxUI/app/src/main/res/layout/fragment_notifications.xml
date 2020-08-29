@@ -66,7 +66,7 @@
                 android:ems="10"
                 android:fontFamily="@font/bahnschrift"
                 android:hint="NAME OF YOUR GROUP"
-                android:inputType="textPersonName|textCapWords"
+                android:inputType="textPersonName"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
                 android:textAlignment="center"

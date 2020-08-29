@@ -4,18 +4,18 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.contacts_list.view.*
-import kotlinx.android.synthetic.main.contacts_card.*
-import kotlinx.android.synthetic.main.event_card.view.*
 
 
-class RecyclerviewAdapterContact (val itemsContactList : ArrayList<Pair<String,String>>, val context : Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+class RecyclerviewAdapterContact(val filteredList: ArrayList<Pair<Pair<String, String>, Pair<String, String>>>, val matchPair: Pair<String, String>,val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): RecyclerView.ViewHolder {
             val view = LayoutInflater.from(context).inflate(R.layout.contacts_list, p0, false)
+
         return CardViewHolder(
             view
         )
@@ -24,7 +24,7 @@ class RecyclerviewAdapterContact (val itemsContactList : ArrayList<Pair<String,S
     override fun getItemCount(): Int {
 //        val userList: ArrayList<Int> = ArrayList<Int>()
 //        return 10
-        return itemsContactList.size
+        return filteredList.size
     }
 
 //    class ContactViewHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
@@ -37,7 +37,7 @@ class RecyclerviewAdapterContact (val itemsContactList : ArrayList<Pair<String,S
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
         when (holder){
-            is CardViewHolder -> holder.bind(itemsContactList[position])
+            is CardViewHolder -> holder.bind(filteredList[position].second)
         }
 //        Contact.text = itemsContactList[position].first
 //        holder.Person = itemsContactList[position].second

@@ -1,6 +1,7 @@
 package com.example.blackboxui
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,8 @@ class RecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int {
         val userList: ArrayList<Int> = ArrayList<Int>()
-        return events.size
+        Log.d("Hotdog", events.toString())
+        return events.count()
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, p1: Int) {

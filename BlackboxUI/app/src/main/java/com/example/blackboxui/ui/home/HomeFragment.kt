@@ -68,6 +68,10 @@ class HomeFragment : Fragment() {
         super.onResume()
         loadData(Phone, "Phone")
         loadData(Name, "Name")
+
+        Name.clearFocus()
+        Phone.clearFocus()
+
     }
 
     override fun onPause() {
