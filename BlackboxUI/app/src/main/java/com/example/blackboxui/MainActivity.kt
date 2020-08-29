@@ -240,7 +240,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun tagOps(intent: Intent){
-
+        Log.d("Ham","tagops")
         var action : String? = intent.getAction()
         if(action.equals(NfcAdapter.ACTION_TAG_DISCOVERED) ||
                 action.equals(NfcAdapter.ACTION_TECH_DISCOVERED) || action.equals(NfcAdapter.ACTION_NDEF_DISCOVERED)
@@ -260,14 +260,21 @@ class MainActivity : AppCompatActivity() {
 
                                     } else {
                                         createNFCMessage(hostPayload,intent)
-                                        Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this, "Success! $hostPayload is registered", Toast.LENGTH_SHORT).show()
 
                                     }
+                                } else {
+                                    Toast.makeText(this, "How will you host your party?", Toast.LENGTH_SHORT).show()
                                 }
+                            } else {
+
+                                Toast.makeText(this, "Please click \"Scan\" to continue scanning", Toast.LENGTH_SHORT).show()
                             }
+
+
                         }
                     }
-    
+
 
 
     fun createNFCMessage(payload: String, intent: Intent?) : Boolean {
