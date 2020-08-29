@@ -1,14 +1,10 @@
 package com.example.blackboxui
 
 import android.app.ActivityOptions
-<<<<<<< HEAD
 import android.app.PendingIntent
-=======
->>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.graphics.Color
 import android.nfc.NdefMessage
 import android.nfc.NdefRecord
 import android.nfc.NfcAdapter
@@ -18,46 +14,28 @@ import android.nfc.tech.Ndef
 import android.nfc.tech.NdefFormatable
 import android.nfc.tech.NfcA
 import android.os.Bundle
-<<<<<<< HEAD
 import android.os.IBinder
 import android.os.Parcel
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-=======
-import android.util.Log
-import android.widget.Button
-import android.widget.EditText
-import com.google.android.material.bottomnavigation.BottomNavigationView
->>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.blackboxui.ui.notifications.NotificationsFragment
-<<<<<<< HEAD
-import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
-=======
-import com.google.android.material.tabs.TabLayoutMediator
->>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_notifications.*
 import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var database : DatabaseReference
-    var user = ArrayList<Pair<String,String>>()
-    var party = ArrayList<(Pair<String,String>)>()
-    var update = ArrayList<Pair<String,String>>()
+    //private lateinit var database: DatabaseReference
+    var user = ArrayList<Pair<String, String>>()
+    var party = ArrayList<(Pair<String, String>)>()
+    var update = ArrayList<Pair<String, String>>()
 
     // NFC
 
@@ -71,12 +49,12 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var navController: NavController
 
-    lateinit var mintent : Intent
+    lateinit var mintent: Intent
 
     //
 
     val data: FirebaseDatabase = FirebaseDatabase.getInstance()
-    val database : DatabaseReference = data.getReference("blackbox")
+    lateinit var database: DatabaseReference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,20 +63,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-        val scannerButton : Button = scanButton
+        val scannerButton: Button = scanButton
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 
         navController = findNavController(R.id.nav_host_fragment)
         navView.setupWithNavController(navController)
 
-        scannerButton.setOnClickListener{ view ->
-            val intent = Intent(this,ScanActivity::class.java)
+        scannerButton.setOnClickListener { view ->
+            val intent = Intent(this, ScanActivity::class.java)
             val sharedPreferences = getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-            val phoneString = sharedPreferences.getString("Phone",null)
-            intent.putExtra("Phone",phoneString)
-            val nameString = sharedPreferences.getString("Name",null)
-            intent.putExtra("Name",nameString)
+            val phoneString = sharedPreferences.getString("Phone", null)
+            intent.putExtra("Phone", phoneString)
+            val nameString = sharedPreferences.getString("Name", null)
+            intent.putExtra("Name", nameString)
 
             var name: String? = sharedPreferences.getString("Name", null)
             val phone: String? = sharedPreferences.getString("Phone", null)
@@ -109,17 +87,18 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
     override fun onResume() {
         super.onResume()
 
         database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Log.d("testing3","onDataChange")
-                for(orbs in dataSnapshot.children){
-                    for(dates in orbs.children){
-                        for(data in dates.children){
-                            Repository.users.add(Pair(data.value.toString(),data.key.toString()))
-                            Repository.party.add(Pair(orbs.value.toString(),dates.value.toString()))
+                Log.d("testing3", "onDataChange")
+                for (orbs in dataSnapshot.children) {
+                    for (dates in orbs.children) {
+                        for (data in dates.children) {
+                            Repository.users.add(Pair(data.value.toString(), data.key.toString()))
+                            Repository.party.add(Pair(orbs.value.toString(), dates.value.toString()))
                         }
                     }
                 }
@@ -132,31 +111,12 @@ class MainActivity : AppCompatActivity() {
 
         Log.d("testing", user.toString())
         Log.d("testing2", party.toString())
-    }
-
-<<<<<<< HEAD
-    override fun onResume(){
-        super.onResume()
 
         var tagDetected : IntentFilter = IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED)
         var ndefDetected : IntentFilter = IntentFilter(NfcAdapter.ACTION_NDEF_DISCOVERED)
         var techDetected : IntentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
         var nfcIntentFilter =
                 arrayOf(techDetected, tagDetected, ndefDetected)
-=======
-//    private fun saveData(et : EditText?, key : String) {
-//
-//        val insertedText = et?.text.toString()
-//
-//        val sharedPreferences = (activity as MainActivity).getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.apply {
-//            putString(key, insertedText)
-//        }.apply()
-//
-    /*
-    private fun init() {
->>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 
         var pendingIntent = PendingIntent.getActivity(
                 this, 0, Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
