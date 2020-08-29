@@ -12,12 +12,12 @@ import kotlinx.android.synthetic.main.event_card.view.*
 
 class RecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     lateinit var context : Context
-    var events: ArrayList<Pair<String, String>> = ArrayList()
+    var events: ArrayList<Pair<String, String>> = Repository.party
 
     fun addEvents() {
 //        if (events.size > 10){return}
-        events.add(Pair("Martha's Litfest", "7/31/20"))
-        events.add(Pair("Ryan's Rager", "8/10/20"))
+//        events.add(Pair("Martha's Litfest", "7/31/20"))
+//        events.add(Pair("Ryan's Rager", "8/10/20"))
 //        Toast.makeText(context, "hello",Toast.LENGTH_SHORT).show()
     }
 

@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.contacts_card.*
 
 
+
 class RecyclerviewAdapterDash : RecyclerView.Adapter<RecyclerviewAdapterDash.CardViewHolder>() {
+
+    var contacts = Repository.users
     lateinit var context : Context
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CardViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.contacts_card, p0, false) as View
@@ -28,14 +31,12 @@ class RecyclerviewAdapterDash : RecyclerView.Adapter<RecyclerviewAdapterDash.Car
 
     override fun onBindViewHolder(p0: CardViewHolder, p1: Int) {
 
-        val contacts: ArrayList<Pair<String, String>> = ArrayList()
-
         fun addContacts(){
             contacts.add(Pair("Chad Chadinson","888-8888"))
             contacts.add(Pair("Brad Bradinson","444-4444"))
         }
 
-        addContacts()
+//        addContacts()
         p0.recyclerView.layoutManager = LinearLayoutManager(context)
 //        p0.recyclerView.layoutManager = GridLayoutManager(context, 2)
         p0.recyclerView.adapter = RecyclerviewAdapterContact(contacts, context)

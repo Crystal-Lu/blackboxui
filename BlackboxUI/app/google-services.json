@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "876685086975",
-    "firebase_url": "https://blackboxui.firebaseio.com",
-    "project_id": "blackboxui",
-    "storage_bucket": "blackboxui.appspot.com"
+    "project_number": "1062538626991",
+    "firebase_url": "https://blackbox-6f3b0.firebaseio.com",
+    "project_id": "blackbox-6f3b0",
+    "storage_bucket": "blackbox-6f3b0.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:876685086975:android:0a6d89e3a76daf14b3bcca",
+        "mobilesdk_app_id": "1:1062538626991:android:ed4cdae5a9213be933915a",
         "android_client_info": {
           "package_name": "com.example.blackboxui"
         }
       },
       "oauth_client": [
         {
-          "client_id": "876685086975-km0d8iqsccdgo66abp5pj017jasek20i.apps.googleusercontent.com",
+          "client_id": "1062538626991-vg18t7to6eln86d4p91dsvqqoaappnij.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blackboxui",
+            "certificate_hash": "ecd524f56d6f20c681b499fe2586d0a8ac8c17fa"
+          }
+        },
+        {
+          "client_id": "1062538626991-hvam0pfn2hpt0r9cergjau62moh3jeg9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAE_n3tLQYJydsUqdeTcNyYj0ZCHfEVRsA"
+          "current_key": "AIzaSyB-9DA0qkOiWSfWrtJJOt4pd86LUS26Ang"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "876685086975-km0d8iqsccdgo66abp5pj017jasek20i.apps.googleusercontent.com",
+              "client_id": "1062538626991-hvam0pfn2hpt0r9cergjau62moh3jeg9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

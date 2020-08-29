@@ -1,9 +1,12 @@
 package com.example.blackboxui
 
 import android.app.ActivityOptions
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,6 +27,9 @@ import kotlinx.android.synthetic.main.contacts_card.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var database : DatabaseReference
+    var user = ArrayList<Pair<String,String>>()
+    var party = ArrayList<(Pair<String,String>)>()
+    var update = ArrayList<Pair<String,String>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,16 +60,14 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        val user = ArrayList<Pair<String,String>>()
-        val party = ArrayList<(Pair<String,String>)>()
-        val update = ArrayList<Pair<String,String>>()
-        database.addValueEventListener(object : ValueEventListener {
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.d("testing3","onDataChange")
                 for(orbs in dataSnapshot.children){
                     for(dates in orbs.children){
                         for(data in dates.children){
-                            user.add(Pair(data.value.toString(),data.key.toString()))
-                            party.add(Pair(orbs.value.toString(),dates.value.toString()))
+                            Repository.users.add(Pair(data.value.toString(),data.key.toString()))
+                            Repository.party.add(Pair(orbs.value.toString(),dates.value.toString()))
                         }
                     }
                 }
@@ -73,7 +77,21 @@ class MainActivity : AppCompatActivity() {
                 println("The read failed: " + databaseError.code)
             }
         })
+
+        Log.d("testing", user.toString())
+        Log.d("testing2", party.toString())
     }
+
+//    private fun saveData(et : EditText?, key : String) {
+//
+//        val insertedText = et?.text.toString()
+//
+//        val sharedPreferences = (activity as MainActivity).getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.apply {
+//            putString(key, insertedText)
+//        }.apply()
+//
     /*
     private fun init() {
 

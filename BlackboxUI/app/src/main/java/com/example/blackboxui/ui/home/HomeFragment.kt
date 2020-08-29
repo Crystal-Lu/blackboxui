@@ -15,12 +15,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
-    val events : ArrayList<Pair<String,String>> = ArrayList()
-
-    fun addEvents() {
-        events.add(Pair("Martha's Litfest", "7/31/20"))
-        events.add(Pair("Ryan's Rager", "8/10/20"))
-    }
+//    val events : ArrayList<Pair<String,String>> = ArrayList()
+//
+//    fun addEvents() {
+//        events.add(Pair("Martha's Litfest", "7/31/20"))
+//        events.add(Pair("Ryan's Rager", "8/10/20"))
+//    }
 
 
     private lateinit var homeViewModel: HomeViewModel
