@@ -1,7 +1,10 @@
 package com.example.blackboxui
 
 import android.app.ActivityOptions
+<<<<<<< HEAD
 import android.app.PendingIntent
+=======
+>>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -15,6 +18,7 @@ import android.nfc.tech.Ndef
 import android.nfc.tech.NdefFormatable
 import android.nfc.tech.NfcA
 import android.os.Bundle
+<<<<<<< HEAD
 import android.os.IBinder
 import android.os.Parcel
 import android.util.Log
@@ -22,14 +26,24 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+=======
+import android.util.Log
+import android.widget.Button
+import android.widget.EditText
+import com.google.android.material.bottomnavigation.BottomNavigationView
+>>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.blackboxui.ui.notifications.NotificationsFragment
+<<<<<<< HEAD
 import com.google.android.gms.dynamic.SupportFragmentWrapper
 import com.google.android.material.bottomnavigation.BottomNavigationView
+=======
+import com.google.android.material.tabs.TabLayoutMediator
+>>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -40,7 +54,10 @@ import java.time.format.DateTimeFormatter
 
 
 class MainActivity : AppCompatActivity() {
-
+    private lateinit var database : DatabaseReference
+    var user = ArrayList<Pair<String,String>>()
+    var party = ArrayList<(Pair<String,String>)>()
+    var update = ArrayList<Pair<String,String>>()
 
     // NFC
 
@@ -64,6 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        database = FirebaseDatabase.getInstance().getReference("test")
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
@@ -91,7 +109,32 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    override fun onResume() {
+        super.onResume()
 
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                Log.d("testing3","onDataChange")
+                for(orbs in dataSnapshot.children){
+                    for(dates in orbs.children){
+                        for(data in dates.children){
+                            Repository.users.add(Pair(data.value.toString(),data.key.toString()))
+                            Repository.party.add(Pair(orbs.value.toString(),dates.value.toString()))
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                println("The read failed: " + databaseError.code)
+            }
+        })
+
+        Log.d("testing", user.toString())
+        Log.d("testing2", party.toString())
+    }
+
+<<<<<<< HEAD
     override fun onResume(){
         super.onResume()
 
@@ -100,6 +143,20 @@ class MainActivity : AppCompatActivity() {
         var techDetected : IntentFilter = IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED)
         var nfcIntentFilter =
                 arrayOf(techDetected, tagDetected, ndefDetected)
+=======
+//    private fun saveData(et : EditText?, key : String) {
+//
+//        val insertedText = et?.text.toString()
+//
+//        val sharedPreferences = (activity as MainActivity).getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.apply {
+//            putString(key, insertedText)
+//        }.apply()
+//
+    /*
+    private fun init() {
+>>>>>>> 3e7553c56a8642d2763d12fb0f7d59bbed0d8f0d
 
         var pendingIntent = PendingIntent.getActivity(
                 this, 0, Intent(this, javaClass).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
