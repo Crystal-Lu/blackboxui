@@ -21,11 +21,13 @@
     <Button
 
         android:id="@+id/scanButton"
-        android:layout_width="87dp"
+        android:layout_width="wrap_content"
         android:layout_height="34dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/scan_button_background"
+        android:drawableLeft="@drawable/ic_icon_ionic_ios_qr_scanner"
         android:fontFamily="@font/bahnschrift"
+        android:paddingLeft="12dp"
         android:text="Scan"
         android:textAllCaps="false"
         android:textColor="@color/white"

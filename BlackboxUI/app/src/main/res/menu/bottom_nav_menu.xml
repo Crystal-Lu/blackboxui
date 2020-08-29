@@ -7,18 +7,18 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home"
-        app:itemRippleColor="@color/colorAccent"/>
+        android:icon="@drawable/ic_icon_material_history"
+        android:title="Events"
+        app:itemRippleColor="@color/colorAccent" />
 
     <item
         android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:icon="@drawable/ic_icon_material_contacts"
+        android:title="Contacts" />
 
     <item
         android:id="@+id/navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
-        android:title="@string/title_notifications" />
+        android:icon="@drawable/ic_path_33"
+        android:title="Host" />
 
 </menu>

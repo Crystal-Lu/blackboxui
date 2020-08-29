@@ -15,14 +15,16 @@
         app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
-        app:contentPadding="10dp"
+        app:contentPadding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/pink_gradient"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/contactHeader"
@@ -34,7 +36,7 @@
                 android:textAlignment="viewStart"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@+id/Date"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="08/13/2020"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,6 +67,7 @@
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
         app:contentPadding="10dp"
+        app:contentPaddingBottom="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,15 +77,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/Name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="08/13/2020" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/contactsList"
