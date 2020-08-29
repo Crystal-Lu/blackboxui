@@ -9,12 +9,15 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.contacts_card.*
-
+import kotlinx.android.synthetic.main.event_card.view.*
 
 
 class RecyclerviewAdapterDash : RecyclerView.Adapter<RecyclerviewAdapterDash.CardViewHolder>() {
 
     var contacts = Repository.users
+
+    //TODO: create third data structure for past events, not sure how to do
+
     lateinit var context : Context
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CardViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.contacts_card, p0, false) as View
@@ -38,14 +41,19 @@ class RecyclerviewAdapterDash : RecyclerView.Adapter<RecyclerviewAdapterDash.Car
 
 //        addContacts()
         p0.recyclerView.layoutManager = LinearLayoutManager(context)
-//        p0.recyclerView.layoutManager = GridLayoutManager(context, 2)
         p0.recyclerView.adapter = RecyclerviewAdapterContact(contacts, context)
-//        p0.name?.text = userList[p1].name
-//        p0.count?.text = userList[p1].count.toString()
+
+//        when (p0) {
+//            is CardViewHolder ->
+//            {
+//                p0.bind(pastEvents[p1])
+//                p0.recyclerView.layoutManager = LinearLayoutManager(context)
+//                p0.recyclerView.adapter = RecyclerviewAdapterContact (contacts,context)
+//            }
+//        }
+
     }
-//    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        val name = itemView.findViewById<TextView>(R.id.tvName)
-//        val count = itemView.findViewById<TextView>(R.id.tvCount)
+
 
     class CardViewHolder constructor(
         itemView: View
@@ -54,6 +62,11 @@ class RecyclerviewAdapterDash : RecyclerView.Adapter<RecyclerviewAdapterDash.Car
         val recyclerView : RecyclerView = itemView.findViewById(R.id.contactsList)
         //val taskText: TextView = itemView.text
 
+        val v0 = itemView
+        fun bind(pair: Pair<String, String>) {
+            v0.Name.text = pair.first
+            v0.Date.text = pair.second
+        }
 //        fun bind(task: Task){
 //            taskText.setText(task.text)
 //
